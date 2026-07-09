@@ -26,16 +26,30 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Voici
-        run: python -m pip install --upgrade pip voici
+      - name: Install build dependencies
+        run: python -m pip install --upgrade pip voici jupyterlite-xeus
 
       - name: Setup micromamba
         uses: mamba-org/setup-micromamba@v2
 
       - name: Build static site
         run: |
-          voici build --lite-dir . --output-dir _site --contents vste_gold_and_oil.ipynb
+          voici build --lite-dir . --output-dir _site --contents vste_gold_and_oil.ipynb --VoilaConfiguration.language_kernel_mapping=python=xpython
           touch _site/.nojekyll
+
+      - name: Verify kernel configuration
+        run: |
+          test -f _site/jupyter-lite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          cfg = json.loads(Path("_site/jupyter-lite.json").read_text(encoding="utf-8"))
+          kernel = cfg.get("jupyter-config-data", {}).get("defaultKernelName")
+          print("defaultKernelName:", kernel)
+          if not kernel:
+              raise SystemExit("No defaultKernelName found in _site/jupyter-lite.json")
+          PY
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
