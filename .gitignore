@@ -1,0 +1,9 @@
+# Build and generated artifacts
+_site/
+.jupyterlite.doit.db
+
+# Local environment
+.venv/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
