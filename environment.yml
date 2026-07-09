@@ -1,0 +1,12 @@
+name: voici-env
+channels:
+  - https://prefix.dev/emscripten-forge-4x
+  - conda-forge
+dependencies:
+  - xeus-python
+  - matplotlib
+  - pandas
+  - numpy
+  - scipy
+  - statsmodels
+  - yfinance
