@@ -13,3 +13,12 @@ This repository includes a workflow at [.github/workflows/deploy-pages.yml](.git
 After the workflow succeeds, the site will be available at:
 
 `https://<your-github-username>.github.io/<your-repo-name>/`
+
+## If Pages Shows Only README
+
+If your deployed page shows only the repository README, GitHub Pages is usually still serving from the branch instead of the Actions artifact.
+
+1. Open repository Settings > Pages.
+2. Under Build and deployment, set Source to GitHub Actions.
+3. Re-run the Deploy Voici Site to GitHub Pages workflow from the Actions tab.
+4. Open the deployment URL shown by the job (Environment: github-pages), not the repository URL.

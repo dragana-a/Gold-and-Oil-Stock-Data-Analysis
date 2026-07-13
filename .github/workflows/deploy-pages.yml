@@ -32,6 +32,9 @@ jobs:
       - name: Setup micromamba
         uses: mamba-org/setup-micromamba@v2
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Build static site
         run: |
           voici build --lite-dir . --output-dir _site --contents vste_gold_and_oil.ipynb --VoilaConfiguration.language_kernel_mapping=python=xpython
@@ -40,6 +43,7 @@ jobs:
       - name: Verify kernel configuration
         run: |
           test -f _site/jupyter-lite.json
+          test -f _site/index.html
           python - <<'PY'
           import json
           from pathlib import Path
